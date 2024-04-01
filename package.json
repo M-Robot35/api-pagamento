@@ -4,8 +4,8 @@
   "description": "arquivo para fazer testes em applicações express",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "dev": "ts-node-dev --trace-deprecation --ignore-watch node_modules index.ts"
+    "start": "node --inspect -r ./dist/index.js",
+    "dev": "ts-node-dev --clear --respawn  --transpile-only index.ts "
   },
   "keywords": [],
   "author": "Thiago teles - (31) 98501-9300",
@@ -27,6 +27,8 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/node-cron": "^3.0.11",
+    "nodemon": "^3.1.0",
+    "sucrase": "^3.35.0",
     "typescript": "^5.4.3"
   }
 }

@@ -1,0 +1,34 @@
+
+@host=http://localhost:3000
+
+
+### GET - Testes
+GET {{host}}  HTTP/1.1
+content-type: application/json
+
+### POST
+POST {{host}}/schundle  HTTP/1.1
+content-type: application/json
+
+{
+  "datetime":"19:29",
+  "mensagem":"wallet of satoshi"
+}
+
+### GET
+GET {{host}}/jobs  HTTP/1.1
+content-type: application/json
+
+//
+
+### POST  -- PAYMENT
+POST {{host}}/paymentmp  HTTP/1.1
+content-type: application/json
+
+{
+  "title": "carrinho",
+  "description": "Carrinho de testes",
+  "quantity":1,
+  "unit_price":50
+}
+

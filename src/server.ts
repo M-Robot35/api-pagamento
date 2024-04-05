@@ -22,8 +22,8 @@ export default class Server {
   }
 
   private configure() {
-    this.App.use(this.cors());
     this.App.use(express.json());
+    this.App.use(this.cors());
     this.App.use(express.urlencoded({ extended: false }));
     this.App.use(router);
     this.listen();

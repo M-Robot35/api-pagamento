@@ -9,6 +9,7 @@ import { configServer } from "../configServer/configServer";
  */
 export const WebsocketEmmiter = new EventEmitter().setMaxListeners(configServer.emmiter_max)
 
+let server_io:Server|null= null;
 
 export const io = (http: http.Server):Server => {
   const io = new Server(http);
@@ -23,12 +24,17 @@ export const io = (http: http.Server):Server => {
       WebsocketEmmiter.emit('disconnect', socket.id )
     });
 
-    // io.to(openSocket.get(sockID)).emit("done", event)
   });
+  
+  server_io= io
   return io;
 };
 
 
-WebsocketEmmiter.on('connection', (event)=>{
-  event.id
-})
+export  function getIo():Server{  
+  if(!server_io){
+    throw new Error('Server IO não inicializado')
+  }
+
+  return server_io
+}

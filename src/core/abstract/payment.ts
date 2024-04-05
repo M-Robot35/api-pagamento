@@ -8,9 +8,9 @@ export abstract class PagamentoInterface<T> {
 
     constructor(){ }
 
-    abstract pay(data:T):void|void
+    abstract pay(data:T):void
 
-    abstract pix?(data:T):void|void
+    abstract pix?(data:T):void
 
     cartao?(){
         

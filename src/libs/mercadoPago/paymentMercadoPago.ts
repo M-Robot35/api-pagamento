@@ -20,6 +20,7 @@ export class MercadoLivre implements PagamentoInterface<MpPreferenceInterface>{
 
     pix(): void {
         console.log(`Pagamento via MercadoLivre`)
+        throw new Error('NÃO IMPLEMENTADO =  Pagamento Pix Mercado Pago')
     }
 
     async pay(data:MpPreferenceInterface): Promise<void|string> {           
@@ -56,6 +57,11 @@ export class MercadoLivre implements PagamentoInterface<MpPreferenceInterface>{
         return await result
     }
 
+    /**
+     * 
+     * @param data Dados vindo do retorno API  Mercado Pago
+     * @returns Retorna somente os campos necessarios 
+     */
     private filter(data:any):OutputPreferencFilter{
         return {
             id: data.id,

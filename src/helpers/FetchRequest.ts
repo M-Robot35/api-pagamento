@@ -13,7 +13,8 @@ export class FetchRequest {
 
     constructor(url:string,option:FetchInterface){
         this.url = url;
-        this.autorization = option['autorization'];
+        this.autorization = option['autorization']??null;
+        this.body = option['body']??null
 
         this.checked()
     }    
@@ -44,18 +45,18 @@ export class FetchRequest {
     }
 
     put(){
-
+        throw  new Error('Não implementado')
     }
 
     patch(){
-
+        throw  new Error('Não implementado')
     }
 
     delete(id: string): void {
-        
+        throw  new Error('Não implementado')
     }
 
     update(id: string): void {
-        
+        throw  new Error('Não implementado')
     }
 }

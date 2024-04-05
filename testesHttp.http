@@ -6,29 +6,37 @@
 GET {{host}}  HTTP/1.1
 content-type: application/json
 
-### POST
-POST {{host}}/schundle  HTTP/1.1
+### POST - CREATE USER
+POST {{host}}/create  HTTP/1.1
 content-type: application/json
 
 {
-  "datetime":"19:29",
-  "mensagem":"wallet of satoshi"
+  "name":"Thiago Teles 12",
+  "email":"thiagoTeles33@gmail.com",
+  "password":"quantalameira"
+}
+
+
+### POST - Login
+POST {{host}}/login  HTTP/1.1
+content-type: application/json
+
+{
+  "email":"thiagoteles33@gmail.com",
+  "password":"quantalameira"
 }
 
 ### GET
 GET {{host}}/jobs  HTTP/1.1
 content-type: application/json
 
-//
 
 ### POST  -- PAYMENT
-POST {{host}}/paymentmp  HTTP/1.1
+POST {{host}}/create  HTTP/1.1
 content-type: application/json
 
 {
-  "title": "carrinho",
-  "description": "Carrinho de testes",
-  "quantity":1,
-  "unit_price":50
+  "name": "carrinho",
+  "email": "Carrinho de testes",
+  "password":"quanta lameira pablito"
 }
-

@@ -1,9 +1,9 @@
-import { MercadoLivre } from "../../libs/mercadoPago/paymentMercadoPago"
+import { MercadoPago } from "../../libs/mercadoPago/paymentMercadoPago"
 import { Paypol } from "../../libs/paypal/Paypol"
 import { PagamentoInterface, user } from "../abstract/payment"
 
 export const pagamentoOptions={
-    'MERCADO_PAGO' : new MercadoLivre(),
+    'MERCADO_PAGO' : new MercadoPago(),
     "PAYPOL": new Paypol()
 }
 

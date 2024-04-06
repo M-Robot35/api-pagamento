@@ -6,7 +6,9 @@ import * as main from "./index";
 //
 import { JwtDecode } from "../core/oauth/oauth";
 import { z } from 'zod'
+import { configServer } from "../configServer/configServer";
 
+const checkToken = configServer.valid_token
 
 class OauthValidate extends BaseMiddleware {
     
@@ -36,6 +38,8 @@ class OauthValidate extends BaseMiddleware {
     }
 
     async validateUser(req:Request, res:Response, next:NextFunction){
+        if(!checkToken) return next()
+
         const { authorization } = req.headers
 
         const token = authorization.split(' ')[1]

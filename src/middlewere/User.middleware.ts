@@ -13,7 +13,7 @@ class UserMiddleware extends BaseMiddleware{
     }    
 
     async UserCreate(req:Request, res:Response, next:NextFunction){
-                
+
         const schemaCreate= z.object({
             name: z.string().trim().toLowerCase()
                 .min(3,"Nome deve ter mais de 3 characteres")

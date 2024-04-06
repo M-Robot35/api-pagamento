@@ -4,7 +4,7 @@ import * as main from "./index";
 import { Request, Response, NextFunction } from "express";
 import ResponseRequest from "../helpers/ResponseRequest";
 import { z } from "zod"
-
+//
 
 class PaymentMiddleware extends BaseMiddleware {
     
@@ -13,7 +13,7 @@ class PaymentMiddleware extends BaseMiddleware {
     }
 
     paymentVerify(req:Request, res:Response, next:NextFunction){
-        
+
         const schemaCreate= z.object({
             title: z.string().trim().toLowerCase()
                 .min(3,"Title deve ter mais de 3 characteres")
@@ -41,7 +41,7 @@ class PaymentMiddleware extends BaseMiddleware {
     }
 
     pixVerify(req:Request, res:Response, next:NextFunction){
-        
+
         const schemaCreate= z.object({
 
             description: z.string().trim().toLowerCase()

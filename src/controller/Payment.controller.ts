@@ -57,23 +57,15 @@ class PaymentController extends ControllerBase {
 
     const user_id = req['id']   
 
-    const { transaction_amount, description, email } = req.body;    
-    
-    // if(valid){
-    //   const db = await up.Database()    
-    //   var user = await db.findById(user_id)      
-    //   if(!user) return up.ReqRes.notFound(res, 'Usuário para pagamento não encontrado')
-    // } 
+    const { transaction_amount, description, email } = req.body;       
 
     const paymentMp:IPixMp = {
       transaction_amount: transaction_amount,      
-      description: `${description}`,      
+      description: `${user_id??''}#${description}`,      
       email: `${email}`,
     };    
-
-    console.log(paymentMp)
-    
-    const pagar = new Pagamento(pagamentoOptions.MERCADO_PAGO);
+        
+    const pagar = new Pagamento(pagamentoOptions.PAYPOL);
 
     const result = await pagar.pix(paymentMp);
     console.log(result)

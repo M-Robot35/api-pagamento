@@ -6,18 +6,9 @@
 GET {{host}}  HTTP/1.1
 content-type: application/json
 
-### POST - CREATE USER
-POST {{host}}/create  HTTP/1.1
-content-type: application/json
-
-{
-  "name":"Thiago Teles 12",
-  "email":"thiagoTeles33@gmail.com",
-  "password":"quantalameira"
-}
 
 
-### POST - Login
+### POST - LOGIN  --------------------------------------------
 POST {{host}}/login  HTTP/1.1
 content-type: application/json
 
@@ -26,12 +17,12 @@ content-type: application/json
   "password":"quantalameira"
 }
 
-### GET
+### GET  -----------------------------------------------------
 GET {{host}}/jobs  HTTP/1.1
 content-type: application/json
 
 
-### POST  -- PAYMENT
+### POST  -- PAYMENT  ----------------------------------------
 POST {{host}}/create  HTTP/1.1
 content-type: application/json
 
@@ -39,4 +30,15 @@ content-type: application/json
   "name": "carrinho",
   "email": "Carrinho de testes",
   "password":"quanta lameira pablito"
+}
+
+
+### POST  -- PAYMENT  PIX  -----------------------------------
+POST {{host}}/paymentpix  HTTP/1.1
+content-type: application/json
+
+{ 
+  "transaction_amount": 20,
+  "description": "thiagol apenas teste",
+  "email": "thiagoteles@gmail.com"
 }

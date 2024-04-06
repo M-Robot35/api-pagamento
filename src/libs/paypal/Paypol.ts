@@ -10,8 +10,9 @@ export class Paypol implements PagamentoInterface{
         console.log(data.nome)
     }
 
-    pix(data: user): void {
-        
+    pix(data: user) {
+        console.log('Paypol NÃO IMPLEMENTADO')       
+        return 'PAYPOL'
     }
 
     cartao(): void {

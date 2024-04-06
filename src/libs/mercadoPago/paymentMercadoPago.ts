@@ -40,7 +40,7 @@ export const MercadoPagoEvents = new EventEmitter()
 // ---------- Pagamento Mercado Pago ---------------------------------
 // -------------------------------------------------------------------
 
-export class MercadoLivre implements PagamentoInterface{
+export class MercadoPago implements PagamentoInterface{
 
     private apiKeyMp:Mpconfig= MpConfig()
     private client:MercadoPagoConfig

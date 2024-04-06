@@ -44,10 +44,6 @@ abstract class BaseMiddleware {
         console.log(await configMiddleware.jwtDecode(token))
         return
     }
-
-    
-    
-
 }
 
 

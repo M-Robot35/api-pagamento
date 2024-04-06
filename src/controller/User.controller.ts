@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 import {statusResponse} from "../helpers/ResponseRequest";
-import ControllerBase from ".";
 import * as up from '.'
+import { ControllerBase } from ".";
 
 
 class UserController extends ControllerBase {
-
-  constructor(){  super()  }
+  
+  constructor(){ super() }
 
 
   async index(req: Request, res: Response) {  
     const db = await up.Database()
-    const all = await db.all()    
+    const all = await db.all()     
     
     return await up.ReqRes.ok(res,all)    
   }

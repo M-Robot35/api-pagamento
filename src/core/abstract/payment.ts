@@ -4,13 +4,13 @@ export interface user{
     senha:string
 }
 
-export abstract class PagamentoInterface<T> {     
+export abstract class PagamentoInterface {     
 
     constructor(){ }
 
-    abstract pay(data:T):void
+    abstract pay(data):void
 
-    abstract pix?(data:T):void
+    abstract pix?(data):void
 
     cartao?(){
         

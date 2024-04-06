@@ -4,8 +4,10 @@ import { UserSearch } from "../core/database/interface-model/User.entity";
 import { PaymentRepository } from "../core/database/interface-model/Payment.Repository";
 import { PaymentPrisma } from "../core/model/PaymentPrisma";
 //
-import ResponseRequest,{statusResponse} from "../helpers/ResponseRequest";
+import ResponseRequest from "../helpers/ResponseRequest";
+import { configServer } from "../configServer/configServer";
 
+export const config_server = configServer
 
 export const ReqRes = ResponseRequest
 
@@ -24,17 +26,15 @@ export const findUserId = async (id:string|number)=>{{
 export const paymentRespository = new PaymentRepository(new PaymentPrisma)
 
 
-
-
 /**
  * Implementar algo para passar aos filhos
  */
-class ControllerBase {  
+export class ControllerBase { 
 
   constructor(){
-
-  }
+    
+  }  
 
 }
 
-export default ControllerBase
+

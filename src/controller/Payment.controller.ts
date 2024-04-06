@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
 import { Pagamento, pagamentoOptions } from "../core/Pagamento/PagamentoUser";
 import { MpPreferenceInterface } from "../core/dto/MpPayment.dto";
+import { IPixMp } from "../libs/mercadoPago/paymentMercadoPago";
+
 //
-import ControllerBase from ".";
+import { ControllerBase } from ".";
 import * as up from '.'
+
 
 class PaymentController extends ControllerBase {
 
@@ -40,14 +43,46 @@ class PaymentController extends ControllerBase {
     })    
 
     res.status(201).json({ url_payment: paymentRespository });
-    return;
 
     const pagar = new Pagamento(pagamentoOptions.MERCADO_PAGO);
 
-    const result = await pagar.pay(paymentMp);
+    const result = await pagar.pix(paymentMp);
 
     res.status(201).json({ url_payment: result });
   }
+
+
+  async pix( req:Request, res:Response ){
+    const valid= up.config_server.mercado_pago.pix.apenas_user_cadastrado
+
+    const user_id = req['id']   
+
+    const { transaction_amount, description, email } = req.body;    
+    
+    // if(valid){
+    //   const db = await up.Database()    
+    //   var user = await db.findById(user_id)      
+    //   if(!user) return up.ReqRes.notFound(res, 'Usuário para pagamento não encontrado')
+    // } 
+
+    const paymentMp:IPixMp = {
+      transaction_amount: transaction_amount,      
+      description: `${description}`,      
+      email: `${email}`,
+    };    
+
+    console.log(paymentMp)
+    
+    const pagar = new Pagamento(pagamentoOptions.MERCADO_PAGO);
+
+    const result = await pagar.pix(paymentMp);
+    console.log(result)
+
+    result ? up.ReqRes.ok(res, result): up.ReqRes.notFound(res, 'Error Server Payment')
+
+  }
+
+
 }
 
 export default new PaymentController();

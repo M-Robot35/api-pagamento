@@ -8,4 +8,6 @@ const payment = Router();
 
 payment.post("/paymentmp", OauthValidate.validateUser ,PaymentMiddleware.paymentVerify ,paymentController.paymentMp);
 
+payment.post("/paymentpix", OauthValidate.validateUser ,PaymentMiddleware.pixVerify ,paymentController.pix);
+
 export default payment;

@@ -8,13 +8,13 @@ export const pagamentoOptions={
 }
 
 export class Pagamento<P>{ 
-    constructor(readonly methodoPayment:PagamentoInterface<P>){}
+    constructor(readonly methodoPayment:PagamentoInterface ){}
   
-    async pay(data:P){
+    async pay<P>(data:P){
         return await this.methodoPayment.pay(data)
     }
   
-    async pix(data: P):Promise<string|void> {
+    async pix<T>(data: T):Promise<string|void> {      
       return await this.methodoPayment.pix(data)
     }
   }

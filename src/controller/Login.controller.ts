@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { jwtLogin } from "../core/oauth/oauth";
 //
-import ControllerBase from ".";
+import { ControllerBase } from ".";
 import * as up from '.'
 
 

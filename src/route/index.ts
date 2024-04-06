@@ -12,17 +12,9 @@ import "../core/model/PaymentModel"
 const router = Router();
 
 router.get("/", async (req: Request, res: Response) => { 
-  const {name, email, password} = req.body    
   
-  const body = {
-    name:'tu',
-    email:'thiago',
-    password:'tudo certo',
-  }
   
-    res.status(201).json({
-    token:''
-  })
+    res.status(201).json({  token:'' })
 
 });
 

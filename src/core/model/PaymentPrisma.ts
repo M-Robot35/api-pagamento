@@ -1,7 +1,5 @@
 import prismaConnect from "../database/connect";
-import { IUser } from "../database/interface-model/User.entity";
-import { User } from "../database/interface-model/userInterface";
-import { UserPaymentEntity,IUsePayment } from "../entities/UserPaymentEntity";
+import { IUsePayment } from "../entities/UserPaymentEntity";
 import { PaymentModel } from "./PaymentModel";
 
 interface IPayment {

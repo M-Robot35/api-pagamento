@@ -1,7 +1,7 @@
 import { PagamentoInterface, user } from "../../core/abstract/payment"
 
 
-export class Paypol implements PagamentoInterface<user>{    
+export class Paypol implements PagamentoInterface{    
    
     constructor(){}
 

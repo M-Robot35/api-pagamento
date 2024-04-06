@@ -87,7 +87,6 @@ export class UserPrisma implements IUser{
     }
 
     async create(data:User){
-
         if(await this.findByEmail(data.email)){
             return 'Email já Existe'
         }

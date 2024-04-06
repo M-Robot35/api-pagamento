@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { jobTime } from "../helpers/cronJobs";
 import { CronInterface } from "../core/dto/cron.dto";
-import ControllerBase from ".";
+import { ControllerBase } from ".";
 
 export interface CronInterfaceDTO {
   datetime:string

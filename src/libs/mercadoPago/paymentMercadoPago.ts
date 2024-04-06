@@ -1,14 +1,46 @@
-import { PagamentoInterface,user } from "../../core/abstract/payment"
+import { PagamentoInterface } from "../../core/abstract/payment"
 
 import MpConfig, { Mpconfig } from "../../configServer/Mpconfig"
 import { OutputPreferencFilter } from "./MpInterface"
-import MercadoPagoConfig, {Preference} from "mercadopago"
+import MercadoPagoConfig, { Preference, Payment } from "mercadopago"
 import { PreferenceResponse } from "mercadopago/dist/clients/preference/commonTypes"
 
-//
-import { MpPreferenceInterface } from "../../core/dto/MpPayment.dto"
 
-export class MercadoLivre implements PagamentoInterface<MpPreferenceInterface>{
+//
+import { MpPreferenceInterface, } from "../../core/dto/MpPayment.dto"
+
+export interface IPixMp {
+    transaction_amount:number
+    description:string
+    payment_method_id?:string
+    email:string
+}
+
+export interface UPixResponse{
+    payment_id: number
+    status: string,
+    currency_id : string
+    description: string
+    valor: number
+    url_qrCode: string
+    ticket_payment: string
+    qr_code_b64: string
+}
+
+import { EventEmitter} from 'events'
+
+/**
+ * @emits PAYMENT_MP_PIX Envia os Dados pelo mercado pago ao fazer um pagamento pix 
+ */
+export const MercadoPagoEvents = new EventEmitter()
+
+
+
+// -------------------------------------------------------------------
+// ---------- Pagamento Mercado Pago ---------------------------------
+// -------------------------------------------------------------------
+
+export class MercadoLivre implements PagamentoInterface{
 
     private apiKeyMp:Mpconfig= MpConfig()
     private client:MercadoPagoConfig
@@ -18,17 +50,54 @@ export class MercadoLivre implements PagamentoInterface<MpPreferenceInterface>{
         this.client= new MercadoPagoConfig({ accessToken: this.apiKeyMp.access_token, options: { timeout: 5000 } });
     }
 
-    pix(): void {
-        console.log(`Pagamento via MercadoLivre`)
-        throw new Error('NÃO IMPLEMENTADO =  Pagamento Pix Mercado Pago')
+    async pix(data:IPixMp): Promise<UPixResponse> {     
+
+        try{            
+            const paymentMethods = new Payment(this.client);
+            const resultPix = await paymentMethods.create({
+                body: { 
+                    transaction_amount: Number(data.transaction_amount),
+                    description: data.description,
+                    payment_method_id: 'pix',
+                    payer: {
+                        email: data.email,
+                    }
+                },                
+            })
+
+            return await this.filterPix(resultPix) 
+
+        }catch(err){
+            console.log(err)
+            return null
+        }       
     }
+
+    
+    private filterPix(data:any):UPixResponse{
+        const filter = {
+            payment_id: data.id,
+            status: data.status,
+            currency_id : data.currency_id,
+            description: data.description,
+            valor: data.transaction_amount,
+            url_qrCode: data.point_of_interaction.transaction_data.qr_code,
+            ticket_payment: data.point_of_interaction.transaction_data.ticket_url,
+            qr_code_b64: data.point_of_interaction.transaction_data.qr_code_base64,
+        }
+        
+        // mandar esses dados para o banco de dados via eventos
+        MercadoPagoEvents.emit('PAYMENT_MP_PIX', filter)
+        return filter
+        
+    }
+
+
 
     async pay(data:MpPreferenceInterface): Promise<void|string> {           
         const paymentPrepare= [data]
         
         const PaymentCreate = this.filter(await this.execPayment(paymentPrepare))
-
-        console.log('TESTE PIX: ',PaymentCreate.sandbox_init_point)    // ========== Apagar
 
         if(process.env.MP_STATUS === 'dev'){
             return PaymentCreate.sandbox_init_point
@@ -47,7 +116,7 @@ export class MercadoLivre implements PagamentoInterface<MpPreferenceInterface>{
                 items: data
             }
         }
-                
+            
         const preference = new Preference(this.client);
         const result = await preference.create(bodyPrepare)
         
